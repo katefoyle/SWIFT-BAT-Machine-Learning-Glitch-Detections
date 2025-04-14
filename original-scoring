@@ -1,0 +1,14 @@
+# GLITCH moved to positive class (1)
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay
+
+positiveclass_is1 = class_indices['GLITCH']   # glitch index
+
+y_score = probabilities[:, positiveclass_is1]   #glitch proba
+
+y_test_is1 = [1 if label == 'GLITCH' else 0 for label in y_test]   #assign binary  1 is positive class
+
+# Plot ROC curve
+RocCurveDisplay.from_predictions(y_test_is1, y_score)
+plt.title("ROC Curve (Positive Class: 'GLITCH')")
+plt.show()
