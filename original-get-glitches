@@ -1,0 +1,176 @@
+from swifttools.swift_too import Data, GUANO    #swifttools
+from astropy.table import Table
+
+import urllib.request
+
+import numpy as np
+import os
+
+# gets 16ms bin of "bad time intervals" where glitch happens
+def get_btis_for_glitches(evdata, tstart, tstop, tbin_size=.016):
+    all_bad_twinds = []
+    #print(f"Starting glitch detection for {len(tstart)} GTI intervals.")
+
+    for start, stop in zip(tstart, tstop):
+        #print(f"Processing GTI from {start} to {stop}")
+
+        bins = np.arange(start, stop + tbin_size / 2.0, tbin_size)
+        ebl = evdata["ENERGY"] <= 25.0
+        ebl2 = evdata["ENERGY"] > 50.0
+        
+        #print(f"Low-energy events: {np.sum(ebl)}")
+        #print(f"High-energy events: {np.sum(ebl2)}")
+
+        h = np.histogram(evdata["TIME"][ebl], bins=bins)[0]
+        h2 = np.histogram(evdata["TIME"][ebl2], bins=bins)[0]
+        
+        stds = (h - np.mean(h)) / np.std(h)
+        stds2 = (h2 - np.mean(h2)) / np.std(h2)
+        
+        bl_lowE_highSNR = stds > 10.0  #should be 10.0
+        bl_highE_lowSNR = (stds / np.abs(stds2)) > 3
+        
+        #print(f"Detected low-energy glitches: {np.sum(bl_lowE_highSNR)}")
+        #print(f"Detected high-energy glitches: {np.sum(bl_highE_lowSNR)}")
+
+        bl_bad = bl_highE_lowSNR & bl_lowE_highSNR  # Combine conditions
+        
+        #print(f"Combined bad glitches: {np.sum(bl_bad)}")
+
+        bad_twinds = []
+        for i in range(np.sum(bl_bad)):
+            t0 = bins[:-1][bl_bad][i]
+            t1 = t0 + tbin_size
+            bad_twind = (t0 - .024, t1 + .024)
+            # 24ms before plus 16ms interval plus 24ms after
+            bad_twinds.append(bad_twind)      
+
+        if bad_twinds:
+            #print(bad_twinds)
+            all_bad_twinds.extend(bad_twinds)              # FLATTENING LIST HERE INSTEAD
+    
+    #print(f"Total bad time windows detected: {len(all_bad_twinds)}")
+    return all_bad_twinds
+
+
+def main():
+    
+    glitchdpi_folder = "GLITCHdpi"
+    total = 300  #50
+    #os.makedirs(glitchdpi_folder, exist_ok=True)
+    
+    scratchbase = os.path.expanduser("~/scratch")  # with full home path
+
+    existing_files = [f for f in os.listdir(glitchdpi_folder) if f.startswith("GLITCHdpi_") and f.endswith(".npy")]
+    saved = len(existing_files)  # Start numbering from the next available file
+    processedobsids = set()
+    
+    index = 0
+    guano = GUANO(begin="2024-01-01", end="2025-01-01")
+    
+    #if saved == total:
+        #print(f"{saved} files already in {glitchdpi_folder}. Done.")
+        #return
+    
+    while saved < total:
+
+
+        obsid = guano[index].obsnum  #storing indexed obsid
+        
+        #print(f"\n\tIndex {index}")
+        #print(f"Glitch {saved}")
+        
+        #print(f"Processing ObsID: {obsid}")
+
+        obsid_folder = os.path.join(scratchbase, str(obsid), "bat", "event")
+        obsname = os.path.join(scratchbase, str(obsid))
+        fname = f"sw{obsid}bevshpo_uf.evt.gz"
+        event_url = os.path.join(obsid_folder, fname)
+                   
+        
+        if os.path.exists(event_url):
+            #print(f"Skipping ObsID {obsid} as event file already exists in directory.")
+            processedobsids.add(obsid)
+            index += 1
+            continue
+            
+        if os.path.exists(obsname):    # if os.path.exists(obsname):     looks for just obsid in scratch folder
+            #print(f"Skipping ObsID {obsid} because it has already been processed (no evt file).")
+            processedobsids.add(obsid)
+            index += 1
+            continue  
+        
+        
+        os.makedirs(obsid_folder, exist_ok=True)  # Ensure directory exists
+
+        try:
+            #print(f"Downloading {obsid} from GUANO.") 
+            # Download event file from GUANO
+            data = Data(obsid=obsid, bat=True, outdir=scratchbase, clobber=True)
+            #print(f"Downloaded event file to: {event_url}")
+        except Exception as e:
+            #print(f"Error downloading event file for ObsID {obsid}: {e}. Skipping.")
+            processedobsids.add(obsid)
+            index += 1
+            continue
+        
+                
+        # Read the event table and GTI table
+        try:
+            evtable = Table.read(event_url)   #dont think i need this
+            event_GTI = Table.read(event_url, hdu='GTI')
+        except Exception as e:
+            #print(f"Error reading event file for ObsID {obsid}: {e}. Skipping.")
+            processedobsids.add(obsid) 
+            index += 1
+            continue
+
+        # Extract GTI start and stop times
+        tstart = event_GTI["START"].data
+        tstop = event_GTI["STOP"].data
+
+        # Identify glitch time intervals and expand to 64ms windows
+        glitch_twinds = get_btis_for_glitches(evtable, tstart, tstop)
+
+        if not glitch_twinds:
+            #print(f"No glitches detected for ObsID {obsid}. Skipping.")
+            processedobsids.add(obsid)
+            index += 1
+            continue
+
+        # DPI 2dhistogram
+        xbins = np.arange(286 + 1) - 0.5
+        ybins = np.arange(173 + 1) - 0.5
+
+        # Process each glitch window
+        for i, (t_min, t_max) in enumerate(glitch_twinds):
+            bl = (evtable['TIME'] >= t_min) & (evtable['TIME'] <= t_max)
+            binned_events = evtable[bl]   # 64 MILLISECOND EVENTS
+
+            if len(binned_events) == 0:   #skip window if no events
+                continue
+
+            # Accumulate histogram
+            dpi = np.histogram2d(binned_events['DETX'], binned_events['DETY'], bins=[xbins, ybins])[0]
+            plt.close()
+    
+            
+        # Save the DPI data if any glitches were found
+            if np.any(dpi):
+                dpi_filename = f"GLITCHdpi_{saved + 1}_window_{i + 1}.npy"
+                dpi_filepath = os.path.join(glitchdpi_folder, dpi_filename)
+                np.save(dpi_filepath, dpi)
+                #print(f"Saved DPI data for ObsID {obsid}, as {dpi_filename} in {glitchdpi_folder} folder.")
+                saved += 1
+            
+                if saved >= total:
+                    #print(f"Done. {total} GLITCH DPIs saved.")
+                    return
+    
+            
+        processedobsids.add(obsid)
+        index += 1
+
+if __name__ == "__main__":
+    print("Starting main...")
+    main()
