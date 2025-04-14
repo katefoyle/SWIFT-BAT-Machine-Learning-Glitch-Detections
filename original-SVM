@@ -1,0 +1,87 @@
+import os
+import numpy as np
+from sklearn import svm, metrics
+from astropy.table import Table
+from sklearn.model_selection import train_test_split
+
+scratchbase = os.path.expanduser("~/scratch")
+
+GRB_dpi_dir = "GRBdpi"
+GLITCH_dpi_dir = os.path.join(scratchbase, "GLITCHdpi")
+
+GRBdpifiles = [f for f in os.listdir(GRB_dpi_dir) if f.endswith('.npy')]
+GLITCHdpifiles = [f for f in os.listdir(GLITCH_dpi_dir) if f.endswith('npy')]
+
+#n_samples = len(dpifiles)
+
+data = []
+targets = []
+
+# GRB
+for dpifile in GRBdpifiles:
+    dpi_path = os.path.join(GRB_dpi_dir, dpifile)
+    
+    dpi = np.load(dpi_path, allow_pickle=True)
+    
+    flattened = np.ravel(dpi)
+    
+    data.append(flattened)
+    
+    targets.append("GRB")
+    
+# GLTICH
+for dpifile in GLITCHdpifiles:
+    dpi_path = os.path.join(GLITCH_dpi_dir, dpifile)
+    
+    dpi = np.load(dpi_path, allow_pickle=True)
+    
+    flattened = np.ravel(dpi) 
+
+    data.append(flattened)
+    
+    targets.append("GLITCH")
+
+    
+data = np.array(data)
+targets = np.array(targets)
+
+print(f"Data shape: {data.shape}") 
+print(f"Targets shape: {targets.shape}")
+
+
+
+
+
+
+#support vector classifier
+clf = svm.SVC(probability=True)
+# (probability=True) in the SVC ()
+
+#Split data into 50% train and 50% test subsets
+X_train, X_test, y_train, y_test = train_test_split(data, targets, test_size=0.2, shuffle=True, stratify=targets)
+
+#Learn the digits on the train subset
+clf.fit(X_train, y_train)
+
+#Predict the value of the digit on the test subset
+predicted = clf.predict(X_test)
+probabilities = clf.predict_proba(X_test)
+
+#turning classes into 0 (glitch) and 1 (grb)
+class_indices = {cls: idx for idx, cls in enumerate(clf.classes_)}
+
+print(f"X_text length: {len(X_test)}")   # y stuff is labels
+print(f"Train length: {len(X_train)}")
+
+# print prediction with the real label
+#for i in range(5):
+for i in range(len(X_test)):   #for i in range(3): prints 3
+    print(f"\n   Test {i+1}:")
+    print(f"Predicted: {predicted[i]}")
+    print(f"REAL: {y_test[i]}")
+    #print(f"Probability: {probabilities[i]}")
+    
+    predicted_class_index = class_indices[predicted[i]]
+
+    print(f"Confidence in predicted class: {probabilities[i][predicted_class_index]:.4f}")
+    print("_" * 42)  # Separator line for clarity
