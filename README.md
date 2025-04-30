@@ -8,9 +8,13 @@ Kate Foyle | Department of Astronomy and Astrophysics | The Pennsylvania State U
 blah blah blah
 ## Notebooks
 #### GRB_
+downloading process in a sentance
 #### GLITCH_
+downloading process...
 #### SVM_
+training and testing...
 #### use_SVM
+uploading my saved versions...
 ## Files
 #### svm_original_model.pkl
 #### svm_lowRES_model.pkl
