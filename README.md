@@ -9,13 +9,13 @@ to make search for GRBs more sensitive to find more dim multi-messenger pair det
 ## Installation/Imports
 blah blah blah
 ## Notebooks
-#### GRB_
+#### GRB_.ipynb
 downloading process in a sentance
-#### GLITCH_
+#### GLITCH_.ipynb
 downloading process...
-#### SVM_
+#### SVM_.ipynb
 training and testing...
-#### use_SVM
+#### use_SVM.ipynb
 uploading my saved versions...
 ## Files
 #### svm_original_model.pkl
