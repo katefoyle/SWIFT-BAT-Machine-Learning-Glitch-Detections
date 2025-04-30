@@ -24,4 +24,4 @@ uploading my saved versions...
 #### svm_original_model.pkl
 #### svm_lowRES_model.pkl
 ## Citations / Acknowledgments
-NASA's HEASARC, "swifttools" package by THAT GUY, Jimmy
+NASA's HEASARC, "swifttools" package by THAT GUY who owns it
