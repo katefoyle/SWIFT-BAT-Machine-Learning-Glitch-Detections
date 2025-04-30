@@ -1,11 +1,9 @@
 # SWIFT-BAT-Machine-Learning-Detections
 machine learning support vector model codes for original and low-res GRB and glitch data on Niel Gehrels SWIFT Observatory / Burst Alert Telescope
 ## Authors
-Kate Foyle | Department of Astronomy and Astrophysics | Eberly College of Science | The Pennsylvania State University\n
-Mentored by:\n
-Dr. James DeLaunay
-Assistant Resreach Professor
-
+Kate Foyle | Department of Astronomy and Astrophysics | Eberly College of Science | The Pennsylvania State University
+#### Mentored by:
+Dr. James DeLaunay | Assistant Research Professor | Department of Astronomy and Astrophysics | Eberly College of Science | The Pennsylvania State University
 
 ## Overview
 what this does
