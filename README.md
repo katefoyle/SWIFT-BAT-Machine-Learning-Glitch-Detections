@@ -3,7 +3,9 @@ machine learning support vector model codes for original and low-res GRB and gli
 ## Authors
 Kate Foyle | Department of Astronomy and Astrophysics | The Pennsylvania State University
 ## Overview
+what this does
 ## Goals
+to make search for GRBs more sensitive to find more dim multi-messenger pair detections between GRBs and GWs
 ## Installation/Imports
 blah blah blah
 ## Notebooks
