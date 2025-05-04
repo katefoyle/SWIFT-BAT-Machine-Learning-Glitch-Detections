@@ -1,5 +1,5 @@
 # *Swift*/BAT Instrumental Glitch Detection with Support Vector Machines
-A machine learning approach using SVMs to identify and reject instrumental glitches in data from the Neil Gehrels Swift Observatory's Burst Alert Telescope, in order to reduce the false alarm rate on GRB triggers.  
+Using Support Vector Machines (SVMs) to identify and reject instrumental glitches and reduce the false alarm rate of GRB triggers in data from the Neil Gehrels Swift Observatory's Burst Alert Telescope. 
 ## Authors
 #### Kate Foyle
 
