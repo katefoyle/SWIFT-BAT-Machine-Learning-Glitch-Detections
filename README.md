@@ -1,5 +1,5 @@
 # SWIFT-BAT-Machine-Learning-Detections
-machine learning support vector model codes for original and low-res GRB and glitch data on Niel Gehrels SWIFT Observatory / Burst Alert Telescope
+A machine learning approach using SVMs to identify and reject instrumental glitches in data from the Neil Gehrels Swift Observatory's Burst Alert Telescope, in order to reduce the false alarm rate on GRB triggers.  
 ## Authors
 #### Kate Foyle
 
