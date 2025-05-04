@@ -1,4 +1,4 @@
-# SWIFT-BAT-Machine-Learning-Detections
+# Glitch-Detections-on-SWIFT-BAT-with-Support-Vector-Machines
 A machine learning approach using SVMs to identify and reject instrumental glitches in data from the Neil Gehrels Swift Observatory's Burst Alert Telescope, in order to reduce the false alarm rate on GRB triggers.  
 ## Authors
 #### Kate Foyle
@@ -38,7 +38,7 @@ Conjoins the GRBs and glitches DPI datasets in the selected resolution and train
 #### use_SVM.ipynb
 An example of how a user can apply pre-trained SVM models of either original and low resolutions to pre-saved DPI files for classifying. DPI file shape must match the reqested SVM resolution. 
 ## Files
-My two saved SVMs in original and lowRES resolutions.
+Saved SVM models in original and lowRES resolutions.
 #### svm_original_model.pkl
 #### svm_lowRES_model.pkl
 ## Citations / Acknowledgments
