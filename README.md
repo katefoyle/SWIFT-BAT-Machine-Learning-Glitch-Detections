@@ -43,8 +43,7 @@ uploading my saved versions...
 ## Citations / Acknowledgments
 swifttools: Kennea, J., Evans, P., & Maddi, V. 2024, Swift-SOT/swifttools: swifttools-3.0.23: Fix bug in ‘TOORequests‘, swifttools-3.0.23, Zenodo, doi: 10.5281/zenodo.10610946
 
-GUANO
-Tohuvavohu, A., Kennea, J. A., DeLaunay, J., et al. 2020, ApJ, 900, 35, doi: 10.3847/1538-4357/aba94f
+GUANO: Tohuvavohu, A., Kennea, J. A., DeLaunay, J., et al. 2020, ApJ, 900, 35, doi: 10.3847/1538-4357/aba94f
 
 GRB catalog: https://swift.gsfc.nasa.gov/results/batgrbcat/
 
