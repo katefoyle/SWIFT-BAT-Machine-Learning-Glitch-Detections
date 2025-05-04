@@ -8,8 +8,7 @@ Department of Astronomy and Astrophysics
 Eberly College of Science
 
 The Pennsylvania State University
-### Mentored by:
-##### Dr. James DeLaunay
+#### Mentored by: Dr. James DeLaunay
 
 Assistant Research Professor
 
