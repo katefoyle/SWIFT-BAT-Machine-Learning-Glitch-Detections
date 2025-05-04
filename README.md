@@ -1,9 +1,23 @@
 # SWIFT-BAT-Machine-Learning-Detections
 machine learning support vector model codes for original and low-res GRB and glitch data on Niel Gehrels SWIFT Observatory / Burst Alert Telescope
 ## Authors
-Kate Foyle | Department of Astronomy and Astrophysics | Eberly College of Science | The Pennsylvania State University
+Kate Foyle
+
+Department of Astronomy and Astrophysics
+
+Eberly College of Science
+
+The Pennsylvania State University
 #### Mentored by:
-Dr. James DeLaunay | Assistant Research Professor | Department of Astronomy and Astrophysics | Eberly College of Science | The Pennsylvania State University
+Dr. James DeLaunay
+
+Assistant Research Professor
+
+Department of Astronomy and Astrophysics
+
+Eberly College of Science
+
+The Pennsylvania State University
 
 ## Overview
 This project utilizes machine learning (ML) for glitch detection -- and subsequent rejection -- in data from the Burst Alert Telescope (BAT) aboard the Neil Gehrels Swift Observatory. By training on known heat pipe glitch patterns and gamma-ray bursts (GRBs), the purpose is to improve the sensitivity of BAT's trigger system and enable a more refined search for more multi-messenger detections involving GRBs and gravitational waves (GWs). For any given trigger or signal-to-noise (S/N) ratio, machine learning reduces the false alarm rate, allowing for more confidence in GRB detections.
