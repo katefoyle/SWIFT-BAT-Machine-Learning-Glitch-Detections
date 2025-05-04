@@ -41,5 +41,5 @@ uploading my saved versions...
 #### svm_original_model.pkl
 #### svm_lowRES_model.pkl
 ## Citations / Acknowledgments
-NASA's HEASARC, "swifttools" package by THAT GUY who owns it, https://swift.gsfc.nasa.gov/results/batgrbcat/, 
+Kennea, J., Evans, P., & Maddi, V. 2024, Swift-SOT/swifttools: swifttools-3.0.23: Fix bug in ‘TOORequests‘, swifttools-3.0.23, Zenodo, doi: 10.5281/zenodo.10610946, Tohuvavohu, A., Kennea, J. A., DeLaunay, J., et al. 2020, ApJ, 900, 35, doi: 10.3847/1538-4357/aba94f, https://swift.gsfc.nasa.gov/results/batgrbcat/, NASA's HEASARC, 
 
