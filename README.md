@@ -36,8 +36,9 @@ Finds heat pipe glitch events in GUANO dumps and downloads their corresponding D
 #### SVM_.ipynb
 Conjoins the GRBs and glitches DPI datasets in the selected resolution and trains a scikit-learn SVM classifier to distinguish between GRBs and instrumental glitches. 
 #### use_SVM.ipynb
-uploading my saved versions...
+An example of how a user can apply pre-trained SVM models of either original and low resolutions to pre-saved DPI files for classifying. DPI file shape must match the reqested SVM resolution. 
 ## Files
+My two saved SVMs in original and lowRES resolutions.
 #### svm_original_model.pkl
 #### svm_lowRES_model.pkl
 ## Citations / Acknowledgments
