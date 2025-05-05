@@ -42,7 +42,7 @@ Saved SVM models in original and lowRES resolutions.
 #### svm_original_model.pkl
 #### svm_lowRES_model.pkl
 ## Citations / Acknowledgments
-swifttools: Kennea, J., Evans, P., & Maddi, V. 2024, Swift-SOT/swifttools: swifttools-3.0.23: Fix bug in ‘TOORequests‘, swifttools-3.0.23, Zenodo, doi: 10.5281/zenodo.10610946
+swifttools: Kennea, J., Evans, P., & Maddi, V. 2024, Swift-SOT/swifttools: swifttools-3.0.23, Zenodo, doi: 10.5281/zenodo.10610946
 
 GUANO: Tohuvavohu, A., Kennea, J. A., DeLaunay, J., et al. 2020, ApJ, 900, 35, doi: 10.3847/1538-4357/aba94f
 
