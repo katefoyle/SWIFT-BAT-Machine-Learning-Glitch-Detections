@@ -19,7 +19,7 @@ Eberly College of Science
 The Pennsylvania State University
 
 ## Overview
-This project utilizes machine learning (ML) for glitch detection -- and subsequent rejection -- in data from the Burst Alert Telescope (BAT) onboard the Neil Gehrels Swift Observatory. By training on known heat pipe glitch patterns and gamma-ray bursts (GRBs), the purpose is to improve the sensitivity of BAT's trigger system and enable a more refined search for more multimessenger detections involving GRBs and gravitational waves (GWs). For any given trigger or signal-to-noise (S/N) ratio, ML reduces the false alarm rate, allowing for more confidence in GRB detections.
+This project utilizes machine learning (ML) for glitch detection -- and subsequent rejection -- in data from the Burst Alert Telescope (BAT) onboard the Neil Gehrels Swift Observatory. By training on known heat pipe glitch patterns and gamma-ray bursts (GRBs), the purpose is to improve the sensitivity of BAT's trigger system and enable a more refined search for more multimessenger detections involving GRBs and gravitational waves (GWs). For any given trigger or signal-to-noise (S/N) ratio, this ML tool reduces the false alarm rate, allowing for higher confidence in GRB detections.
 ## Goals
 - Turn Swift/BAT's current glitch detection process into a machine learning method using Support Vector Machines (SVMs).
 
